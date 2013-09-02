@@ -1,0 +1,17 @@
+# We explicitly prepend config for "ezpublish" namespace in service container extension,
+# so no need to repeat it here
+system:
+    ezdemo_site:
+        location_view:
+            full:
+                article_test:
+                    template: "CjwCookBookBundle:full:article.html.twig"
+                    match:
+                        Identifier\ContentType: article
+    eng:
+        location_view:
+            full:
+                article_test:
+                    template: "CjwCookBookBundle:full:article.html.twig"
+                    match:
+                        Identifier\ContentType: article

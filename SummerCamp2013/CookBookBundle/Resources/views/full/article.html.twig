@@ -1,0 +1,74 @@
+{% extends noLayout ? viewbaseLayout : "CjwCookBookBundle::pagelayout.html.twig" %}
+
+{% block content %}
+
+<div class="attribute-header">
+    <h1 class="long">{{ content.contentInfo.name }} (location ID is #{{ location.id }})</h1>
+</div>
+<div>
+    {# render a simple field #}
+    <h3>{{ ez_render_field( content, "title" ) }}</h3>
+
+    {# add a class attribute #}
+    {{ ez_render_field(
+        content,
+        "short_title",
+        {
+            'attr': { 'class': 'foobar' }
+        }
+    ) }}
+
+    {# add an id to uniquely address this element #}
+    {{ ez_render_field(
+        content,
+        "author",
+        {
+            'attr': { 'id': 'authors' }
+        }
+    ) }}
+    
+    {{ ez_render_field( content, "intro" ) }}
+    {{ ez_render_field( content, "body" ) }}
+
+    {# ezimage type accepts an 'alias' parameter for the image variation #}
+    {{ ez_render_field(
+        content,
+        "image",
+         {
+            'parameters': { 'alias': 'imagefull' }
+         }
+    ) }}
+
+    {{ ez_render_field( content, "caption" ) }}
+    {{ ez_render_field( content, "publish_date" ) }}
+    {{ ez_render_field( content, "tags" ) }}
+
+    {# the ezgmaplocation type needs additional parameters #}
+    {{ ez_render_field(
+        content,
+        "location",
+        {
+            'parameters': { 'showMap': true, 'width': '770px', 'height': '400px', 'zoom': 8 }
+        }
+    ) }}
+
+    <h3>Directly accessing field type values: ezimage</h3>
+    <dl>
+        <dt>fileName</dt><dd>{{ content.getField('image').value.fileName }}</dd>
+        <dt>alternativeText</dt><dd>{{ content.getField('image').value.alternativeText }}</dd>
+        <dt>fileSize</dt><dd>{{ content.getField('image').value.fileSize }}</dd>
+        <dt>uri</dt><dd>{{ content.getField('image').value.uri }}</dd>
+    </dl>
+    <hr>
+    {{ content.getField('author').value }}
+    <hr>
+</div>
+
+
+{# handy way to find out about the variables that are available #}
+<pre>
+{{ dump(location) }} {# formerly node #}
+{{ dump(content) }} {# formerly object #}
+</pre>
+
+{% endblock %}
