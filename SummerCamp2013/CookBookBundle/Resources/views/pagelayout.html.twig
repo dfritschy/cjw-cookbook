@@ -8,6 +8,22 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+    {# set the page title #}
+    {% if ezpublish.legacy.has( 'path' ) %}
+        {% set path = ezpublish.legacy.get( 'path' ) %}
+        {% set title %}
+        CJW Network {% for pathitem in path|reverse %} / {{ pathitem.text }}{% endfor %}
+        {% endset %}
+    {% elseif content is defined %}
+        {% set title %}
+        CJW Network / {{ content.contentInfo.name }} (location ID is #{{ location.id }})
+        {% endset %}
+    {% else %}
+        {% set title %}
+        CJW Network / {{ name | capitalize }}
+        {% endset %}
+    {% endif %}
+
     {% include 'eZDemoBundle::page_head.html.twig' %}
     {% include 'eZDemoBundle::page_head_style.html.twig' %}
     {% include 'eZDemoBundle::page_head_script.html.twig' %}
@@ -41,6 +57,9 @@
         <!-- Path area: END -->
     </div>
     <div class="container">
+        {% block latest_news %}
+            {% include "design:footer/latest_news.tpl"  %}
+        {% endblock %}
         <div class="row">
             <!-- Main area: START -->
             <div class="span{% set innerColumnSize = innerColumnSize|default( 12 ) %} main-content">
