@@ -1,0 +1,28 @@
+{# you must inherit from this template in order to use the block() functions!! #}
+{% extends "EzPublishCoreBundle::content_fields.html.twig"  %}
+
+{% block ezauthor_field %}
+    {% spaceless %}
+        {% if field.value.authors|length() > 0 %}
+            <ul {{ block( 'field_attributes' ) }}>
+                {% for author in field.value.authors %}
+                    <li><a href="mailto:{{ author.email|escape( 'url' ) }}">xx {{ author.name }} xx</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+
+{% block ezdatetime_field %}
+    {% spaceless %}
+        {% if field.value.value %}
+            {% if fieldSettings.useSeconds %}
+                {% set field_value = field.value.value|localizeddate( 'short', 'medium', parameters.locale ) %}
+            {% else %}
+                {% set field_value = field.value.value|localizeddate( 'short', 'short', parameters.locale ) %}
+            {% endif %}
+            xx {{ block( 'simple_block_field' ) }} xx
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+

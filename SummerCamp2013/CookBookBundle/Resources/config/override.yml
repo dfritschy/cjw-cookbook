@@ -8,6 +8,11 @@ system:
                     template: "CjwCookBookBundle:full:article.html.twig"
                     match:
                         Identifier\ContentType: article
+        field_templates:
+            -
+                template: "CjwCookBookBundle:fields:field_templates.html.twig"
+                # Priority is optional (default is 0). The higher it is, the higher your template gets in the list.
+                priority: 10
     eng:
         location_view:
             full:
@@ -15,3 +20,8 @@ system:
                     template: "CjwCookBookBundle:full:article.html.twig"
                     match:
                         Identifier\ContentType: article
+        field_templates:
+            -
+                template: "CjwCookBookBundle:fields:field_templates.html.twig"
+                # Priority is optional (default is 0). The higher it is, the higher your template gets in the list.
+                priority: 10
